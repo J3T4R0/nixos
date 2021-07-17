@@ -1,0 +1,64 @@
+{
+  "sources": {
+    "local": {
+      "local": "Latest Backup",
+      "type": "local",
+      "documents": "~/.local/share/remy/documents",
+      "templates": "~/.local/share/remy/templates"
+    },
+    "ssh": {
+      "name": "ssh",
+      "type": "ssh",
+      "host": "remarkable",
+      "username": "root",
+      "timeout": 10
+    },
+    "ssh_key": {
+      "name": "ssh",
+      "type": "ssh",
+      "host": "remarkable",
+      "username": "root",
+      "key": "~/.ssh/id_rsa",
+      "timeout": 10
+    },
+    "rsync": {
+      "name": "Rsync",
+      "type": "rsync",
+      "host": "remarkable",
+      "rsync_options": [ "--rsync-path=/opt/bin/rsync" ],
+      "key": "~/.ssh/id_rsa",
+      "data_dir": "~/.local/share/remy",
+      "username": "root",
+      "cache_mode": "light_mirror",
+      "timeout": 10
+    },
+    "rsync_cloud": {
+      "name": "Rsync (remote)",
+      "type": "rsync",
+      "username": "benneti",
+      "host": "cloud.tissot.de",
+      "remote_documents": "/home/benneti/remarkable/documents",
+      "remote_templates": "/home/benneti/remarkable/templates",
+      "key": "~/.ssh/id_rsa",
+      "data_dir": "~/.local/share/remy",
+      "cache_mode": "light_mirror",
+      "timeout": 10
+    },
+    "rsync_usb": {
+      "name": "Rsync (usb)",
+      "type": "rsync",
+      "address": "10.11.99.1",
+      "host": "remarkable",
+      "rsync_options": [ "--rsync-path=/opt/bin/rsync" ],
+      "key": "~/.ssh/id_rsa",
+      "data_dir": "~/.local/share/remy",
+      "username": "root",
+      "cache_mode": "light_mirror",
+      "timeout": 10
+    }
+  },
+  "default_source": "local",
+  "preview": {
+    "eraser_mode": "ignore"
+  }
+}

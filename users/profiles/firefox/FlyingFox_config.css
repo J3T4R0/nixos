@@ -1,0 +1,67 @@
+/* order of these files is important and should not be changed */
+
+@import 'icons/extension-icons.css';
+@import 'window-controls/wc-without-tabline.css';
+@import 'hide-tabline.css';
+@import "userChrome-hover.css";
+
+:root {
+  --dark-0: #1A1B23;
+  --dark-base: #1e1f29;
+  --dark-1: #2B2D3B;
+  --dark-2: #343646;
+  --dark-3: #44475a;
+  --dark-4: #4E506A;
+  --light-0: #FFFFFF;
+  --light-base: #f8f8f2;
+  --light-1: #d8d8d2;
+  --light-2: #CCCCCC;
+  --light-3: #C2C2C2;
+  --light-4: #B8B8B8;
+  --green: #50fa7b;
+  --red: #ff5555;
+  --extension-icon-mask: grayscale(100%) invert(0%) sepia(0%) saturate(100%) hue-rotate(0deg) brightness(100) contrast(40%);
+
+  /* expanded width of the sidebar.
+    used for userChrome-static, and hover */
+  --sidebar-width: 250px;
+  /* initial width of the sidebar.
+    advised not to change since tst css relies on this value*/
+  --sidebar-collapsed-width: 60px;
+
+  --dividers: 2px;
+
+  --tl-animation-duration: 200ms;
+  /*--tl-tab-background-gradient: */
+  /* uncomment and add gradient value for selected tab gradient*/
+
+  /******WINDOW CONTROL PLACEMENT VARS******/
+  /* larger value moves window controls down,*/
+  /* can be negative(moves controls up) */
+  /* 55px if tabline visible, -25px if tabline hidden */
+  --wc-vertical-shift: -25px;
+  /* larger value moves window controls right.
+  10-20px should be enough */
+  --wc-horizontal-shift: -30px;
+
+}
+
+:root[privatebrowsingmode="temporary"]{
+  --dark-0: #1A1B23;
+  --dark-base: #1e1f29;
+  --dark-1: #2B2D3B;
+  --dark-2: #343646;
+  --dark-3: #44475a;
+  --dark-4: #4E506A;
+  --light-0: #FFB8E0;
+  --light-base: #ff79c6;
+  --light-1: #ED78BA;
+  --light-2: #E56CB0;
+  --light-3: #DC60A6;
+  --light-4: #D2569C;
+  --accent: #ff79c6;
+  --yellow: #f1fa8c;
+  --green: #50fa7b;
+  --red: #ff5555;
+  --extension-icon-mask: grayscale(100%) invert(0%) sepia(0%) saturate(100%) hue-rotate(0deg) brightness(100) contrast(40%);
+}

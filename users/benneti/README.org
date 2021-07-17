@@ -1,0 +1,101 @@
+#+TITLE: Readme
+consider using https://gitlab.com/interception/linux/plugins/caps2esc (https://www.reddit.com/r/NixOS/comments/lp77y5/nixpkgs_vs_nixosunstable/)
+* First Boot Commands
+** Extra steps for secrets
+*** Magically get my gpg keys and import them
+export
+#+begin_src bash
+gpg --export-ownertrust > ownertrust-gpg.txt
+gpg -a --export-secret-keys > secret-gpg.key
+#+end_src
+and import gpg key for the password store
+#+begin_src bash
+gpg --import-ownertrust ownertrust-gpg.txt
+gpg --import secret-gpg.key
+#+end_src
+*** Decrypt secrets directory
+#+begin_src bash
+git crypt unlock
+#+end_src
+*** Generate ssh key and push it to
+#+begin_src bash
+ssh-keygen -t ed25519 -a 100
+#+end_src
+upload the public key to gitea, github, cloud.tissot.de
+*** Clone pass repo
+
+** Logins: Nextcloud, Element, Firefox
+Login to sync files (Nextcloud), chats (Element), tabs, bookmarks, addons (firefox);
+This configuration does nearly everything else for firefox (native-messaging-hosts, userChrome).
+Login to wallabag needs to be done manually, as well as activating sync for container tabs
+** Initial Maildir sync (we first need the secrets)
+#+begin_src bash
+mkdir -p ~/mail/cloud
+mkdir -p ~/mail/google
+mkdir -p ~/mail/mpl
+mkdir -p ~/mail/tissot
+mkdir -p ~/mail/unikn
+mbsync -a
+mu init --maildir ~/mail --my-address benedikt@tissot.de --my-address benedikt.tissot@uni-konstanz.de --my-address benedikt.tissot@googlemail.com --my-address benedikt.tissot@mpl.mpg.de --my-address benneti@cloud.tissot.de
+mu index
+#+end_src
+
+** Change remotes
+
+** Install Julia Packages
+#+begin_src julia
+using Pkg
+Pkg.add("IJulia")
+Pkg.build("IJulia")
+Pkg.add("SymPy") # TODO hopefully switch to Symbolics.jl at some point
+Pkg.add("Plots")
+Pkg.add("PGFPlotsX")
+Pkg.add("PyPlot") # FIXME would be nice if gr works
+Pkg.add("Unitful") # FIXME would be nice if gr works
+Pkg.add("UnitfulRecipes") # FIXME would be nice if gr works
+Pkg.add("PhysicalConstants") # FIXME would be nice if gr works
+#+end_src
+
+#+RESULTS:
+
+or
+#+begin_example
+] add IJulia SymPy Plots PGFPlotsX PyPlot Unitful UnitfulRecipes PhysicalConstants
+#+end_example
+
+* TODO Doable by home-manager (home.activation) + Nextcloud
+** TODO link .config/calibre to Nextcloud
+** Some firefox settings are missing, start page, tst settings
+** julia packages
+* /etc/nixos
+#+begin_src bash
+nixosdir="/etc/nixos"
+git -C "$nixosdir" remote set-url origin "gitea@cloud.tissot.de:benneti/nixos.git"
+sudo chown -R benneti:wheel "$nixosdir"
+git -C "$nixosdir" remote add devos https://github.com/divnix/devos.git
+git -C "$nixosdir" remote update devos
+#+end_src
+
+* TODO Firefox
+- [ ] search engine settings
+- [ ] headerbar setup
+- [ ] tst setup
+- [ ] nightTab setup
+- [ ] container tabs setup
+- about:config
+  + [ ] privacy.webrtc.legacyGlobalIndicator false
+* TODO Other
+- [ ] oreo red cursor https://github.com/varlesh/oreo-cursors or bibata-cursors https://github.com/ful1e5/Bibata_Cursor
+  + [ ] then also write a little script for presentation mode that changes the cursor to a larde red or orange one
+    gsettings set org.gnome.desktop.interface cursor-theme cursor_theme_name
+    gsettings set org.gnome.desktop.interface cursor-size 64
+  + [ ] the script should also toggle back!
+  + [ ] there should be a desktop file to run the script
+- [ ] script to replace common words with abbreviations in journal names in bibtex: https://cdn.journals.aps.org/files/styleguide-pr.pdf
+  + https://github.com/JabRef/abbrv.jabref.org/tree/master/journals
+* TODO Applications to consider to install
+- https://pdfpc.github.io/ pdfviewer for beamer presentations
+* Hash a password
+#+begin_src bash
+nix-shell -p mkpasswd --run "mkpasswd -m sha-512"
+#+end_src

@@ -1,0 +1,66 @@
+#+TITLE: Benneti's Nixos Configuration
+* Introduction
+My personal nixos configuration, based on [[https://devos.divnix.com/][devos]], see [[./README-DEVOS.md][README-DEVOS.md]].
+* Setup
+** Screenshot
+https://cloud.tissot.de/gitea/benneti/nixos/raw/branch/screenshots/screenshot1.png
+https://cloud.tissot.de/gitea/benneti/nixos/raw/branch/screenshots/screenshot2.png
+https://cloud.tissot.de/gitea/benneti/nixos/raw/branch/screenshots/screenshot3.png
+https://cloud.tissot.de/gitea/benneti/nixos/raw/branch/screenshots/screenshot4.png
+https://cloud.tissot.de/gitea/benneti/nixos/raw/branch/screenshots/screenshot5.png
+** Details
+| Shell             | zsh                                   |
+| Desktop           | Gnome (pop-shell, dash-to-panel, ...) |
+| Editor            | Emacs (DOOM), neovim                  |
+| Browser           | Firefox (FlyingFox, TreeStyleTabs)    |
+| E-Mail            | Emacs (mu4e), neomutt                 |
+| Terminal          | Alacritty                             |
+| Icons             | Papirus                               |
+| GTK Theme         | Dracula                               |
+| QT Platform Theme | gnome                                 |
+| QT Style Override | kvantum                               |
+| Kvantum Theme     | Dracula-Solid                         |
+
+* INSTALL
+
+Setup the disks and mount them (at least boot and root are needed).
+Example for full disk encryption is given by the partitioning of [[./hosts/pulse.nix][pulse]],
+as described in [[./partitioning_pulse.org]].
+
+Now assuming the partitions are mounted like
+#+begin_example
+root -> /mnt
+boot -> /mnt/boot
+home -> /mnt/home
+#+end_example
+we build and install the system
+
+First let nixos generate a configuration
+#+begin_src bash
+nixos-generate-config --root /mnt
+#+end_src
+then move the configuration that was generated to another location and clone this repository in its place ~/mnt/etc/nixos~.
+Using the hardware configuration of the generated config, create a host, see [[./hosts/pulse.nix][pulse]], the filename will be the ~<HOSTNAME>~,
+encrypted partitioning needs manual tweaks.
+#+begin_src bash
+nix-shell -p nixUnstable
+cd /mnt/etc/nixos
+git add hosts/<HOSTNAME>.nix
+nix build /mnt/etc/nixos#nixosConfigurations.<HOSTNAME>.config.system.build.toplevel --experimental-features "flakes nix-command" --store "/mnt" --impure
+# then install the build system...
+sudo nixos-install --root /mnt --system ./result
+#+end_src
+
+* Manual steps necessary
+See the appropriate steps for the user, i.e. [[./users/benneti/README.org]]
+
+* License
+
+This software is licensed under the [MIT License](COPYING).
+
+Note: MIT license does not apply to the packages built by this configuration,
+merely to the files in this repository (the Nix expressions, build
+scripts, NixOS modules, etc.). It also might not apply to patches
+included here, which may be derivative works of the packages to
+which they apply. The aforementioned artifacts are all covered by the
+licenses of the respective packages.

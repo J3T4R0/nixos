@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=UHK Agent
+Exec=uhk-agent %U
+Terminal=false
+Type=Application
+Icon=keyboard
+StartupWMClass=UHK Agent
+Comment=Agent is the configuration application of the Ultimate Hacking Keyboard.
+Categories=Utility;

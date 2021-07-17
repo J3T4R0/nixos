@@ -1,0 +1,210 @@
+{
+  "nodes": {
+    "FlyingFox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1616371777,
+        "narHash": "sha256-iYsxGfbzrv9x2Oop2cfjviWUxVUVtLu+fbYvNkoS2Hw=",
+        "owner": "akshat46",
+        "repo": "FlyingFox",
+        "rev": "8fc00aa654c10260deac2cbbc5bf062b7dcce811",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akshat46",
+        "repo": "FlyingFox",
+        "type": "github"
+      }
+    },
+    "gnomeShellClock": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1619991872,
+        "narHash": "sha256-ybJWeEb1H+asHKR3VU+RXKrQZSuqD1lhCWx4qFvpwY4=",
+        "owner": "sluedecke",
+        "repo": "gnome-shell-clock-override",
+        "rev": "5bd264b2f4be8293802053a6f6cba9a72df5d7cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sluedecke",
+        "ref": "gnome-40",
+        "repo": "gnome-shell-clock-override",
+        "type": "github"
+      }
+    },
+    "gr": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-ChVH4RRErI17YH7Trw5xY1Xhabqpbv/DTGPo1HayW3s=",
+        "type": "tarball",
+        "url": "https://gr-framework.org/downloads/gr-latest-Debian-x86_64.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://gr-framework.org/downloads/gr-latest-Debian-x86_64.tar.gz"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1626312449,
+        "narHash": "sha256-EQMvoKv8xTPzdl85Vil24dpnKzmgKLF9ggo01kV7mkc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "fe653f953d3a1f09ef6888f0ecc3490b2f2a0216",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "notifySendSH": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1620333802,
+        "narHash": "sha256-v52+hQC9USv0iUg5K3il75sjYvNGeTuK28efXWAu89A=",
+        "owner": "vlevit",
+        "repo": "notify-send.sh",
+        "rev": "684a754daafdbc3d4fdf815989104208d2bdac6c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vlevit",
+        "repo": "notify-send.sh",
+        "type": "github"
+      }
+    },
+    "oreo-cursors": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1622189964,
+        "narHash": "sha256-jEZY9Vs4hm6bgv+fgqzMfNV6y6IevOPnfjH54Z5gjdw=",
+        "owner": "varlesh",
+        "repo": "oreo-cursors",
+        "rev": "549ce7b128f535baec5a6a016107f522f069127a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "varlesh",
+        "repo": "oreo-cursors",
+        "type": "github"
+      }
+    },
+    "popShell": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1626295916,
+        "narHash": "sha256-j2b0AOrmXGzwiHeSdkV7343TQLjPUZk5BzJfib3LT6s=",
+        "owner": "pop-os",
+        "repo": "shell",
+        "rev": "1f2ca00c8667df3116a6b5f9707b8ebd50d9e6eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pop-os",
+        "repo": "shell",
+        "type": "github"
+      }
+    },
+    "remy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624824423,
+        "narHash": "sha256-ZVN9ktbeOj9/nrDKnmOCIgqxwJi2Y6b8ZE9FZ8WASJA=",
+        "owner": "bordaigorl",
+        "repo": "remy",
+        "rev": "2305dd78f69d6828fe923577ec4cfa11fd3bd3f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bordaigorl",
+        "ref": "devel",
+        "repo": "remy",
+        "type": "github"
+      }
+    },
+    "restream": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1625090988,
+        "narHash": "sha256-jYnr4yoPPSDt3Zw8dzQWq9WPEV1PVnt13dSBCtkpRJ4=",
+        "owner": "rien",
+        "repo": "reStream",
+        "rev": "74dce9a47e2357be9be16957c3d2089c21fe8d87",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rien",
+        "repo": "reStream",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "FlyingFox": "FlyingFox",
+        "gnomeShellClock": "gnomeShellClock",
+        "gr": "gr",
+        "nixpkgs": "nixpkgs",
+        "notifySendSH": "notifySendSH",
+        "oreo-cursors": "oreo-cursors",
+        "popShell": "popShell",
+        "remy": "remy",
+        "restream": "restream",
+        "soundconverter": "soundconverter",
+        "tuxedo-touchpad-switch": "tuxedo-touchpad-switch",
+        "zvm": "zvm"
+      }
+    },
+    "soundconverter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1625465028,
+        "narHash": "sha256-hChwsq2y5vHCkzVko4Dy8md4b04gfL0DN9pjQIKab34=",
+        "owner": "kassoulet",
+        "repo": "soundconverter",
+        "rev": "367cde13f8059254d5b9049e5fb8ada8b7481a63",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kassoulet",
+        "repo": "soundconverter",
+        "type": "github"
+      }
+    },
+    "tuxedo-touchpad-switch": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1621532265,
+        "narHash": "sha256-dDLLgyLtkcEGGJdqJMYi5lvDQWUwAGtyOipTp6krJkk=",
+        "owner": "tuxedocomputers",
+        "repo": "tuxedo-touchpad-switch",
+        "rev": "4efc7ca3da7de360a4766195923e00587804fd26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tuxedocomputers",
+        "repo": "tuxedo-touchpad-switch",
+        "type": "github"
+      }
+    },
+    "zvm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1625829616,
+        "narHash": "sha256-mWs08JtEG128sQcflKWHw+dA73T90swCis2mME5U32E=",
+        "owner": "jeffreytse",
+        "repo": "zsh-vi-mode",
+        "rev": "5eb9c43f941a3ac419584a5c390aeedf4916b245",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jeffreytse",
+        "repo": "zsh-vi-mode",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

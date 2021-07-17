@@ -1,0 +1,253 @@
+# Inspired by Myth Dark Pointed config for Starship (c) 2020 by Mick Hohmann, last changed 2020-10-22 23:08
+# https://raw.githubusercontent.com/mickimnet/myth-prompt-themes/main/dark/pointed/starship/starship.toml
+# Icons can be found at
+# https://www.nerdfonts.com/cheat-sheet
+
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+# Order of modules on prompt
+format = """[](bg:#464347 fg:#AFD700)\
+        $username\
+        $hostname\
+        $directory\
+        $docker_context\
+        (↓ Source control - for right side ↓)\
+        $git_branch\
+        $git_commit\
+        $git_status\
+        $git_state\
+        (↑ Source control - for right side ↑)\
+        (↓ Toolchain version modules ↓)\
+        $golang\
+        $julia\
+        $python\
+        $rust\
+        (↑ Toolchain version modules ↑)\
+        (↓ Package modules ↓)\
+        $package\
+        $cmake\
+        (↑ Package modules ↑)\
+        $nix_shell\
+        $memory_usage\
+        $env_var\
+        $custom\
+        (↑ above input line ↑)\
+        $line_break\
+        (↓ on input line ↓)\
+        $battery\
+        $shlvl\
+        $jobs\
+        $cmd_duration\
+        $status\
+        $character\
+        $time\
+    """
+
+# Generic prompt configurations
+[character]
+success_symbol = "[[](bg:#AFD700 fg:#464347)](fg:#AFD700)"
+error_symbol = "[[](bg:#ff3322 fg:#464347)](fg:#ff3322)"
+vicmd_symbol = "[[](bg:#6f6a70 fg:#464347)[](bg:#464347 fg:#6f6a70)](bold bg:#6f6a70 fg:#ff3322)"
+format = "$symbol "
+
+[line_break]
+disabled = true
+
+[battery]
+disabled = true
+full_symbol = ""
+charging_symbol = " "
+discharging_symbol = " "
+unknown_symbol = ""
+empty_symbol = ""
+format = "[[](bg:#FF5511 fg:#464347)$symbol$percentage[](bg:#464347 fg:#FF5511)]($style)"
+[[battery.display]]
+threshold = 10
+style = "bold bg:#FF5511 fg:#EEEEEE"
+[[battery.display]]
+threshold = 20
+style = "bg:#FF5511 fg:#111111"
+
+[cmake]
+# disabled = true
+symbol = "⚙"
+style = "bg:#064F8D fg:#EEEEEE"
+format = "[[](bg:#064F8D fg:#464347)$symbol$version[](bg:#464347 fg:#064F8D)]($style)"
+
+[cmd_duration]
+# disabled = true
+style = "bg:#464347 fg:#FBDE2D"
+min_time = 2_000
+show_milliseconds = true
+show_notifications = false
+min_time_to_notify = 45_000
+format = "[ 祥$duration]($style)"
+
+[directory]
+style = "bg:#6F6A70 fg:#EEEEEE"
+read_only = ""
+read_only_style = "bg:#ff3322 fg:#EEEEEE"
+truncation_length = 4
+truncate_to_repo = true
+# truncation_symbol = "…/"
+home_symbol = " "
+fish_style_pwd_dir_length = 3
+format = "([[](bg:#ff3322 fg:#464347)$read_only[](bg:#464347 fg:#ff3322)]($read_only_style))[[](bg:#6F6A70 fg:#464347)$path[](bg:#464347 fg:#6F6A70)]($style)"
+
+[directory.substitutions]
+" /cloud" = " "
+" /documents" = ""
+" /downloads" = ""
+" /mail" = " "
+" /music" = " "
+" /org" = " "
+" /pictures" = " "
+" /videos" = " "
+" /repos" = ""
+
+[docker_context]
+disabled = true
+symbol = " "
+style = "bg:#3A91DC  fg:#EEEEEE"
+only_with_files = true
+format = "[[](bg:#3A91DC fg:#464347)$symbol$context[](bg:#464347 fg:#3A91DC)]($style)"
+
+[env_var]
+disabled = true
+symbol = " "
+style = "bg:#6f6a70 fg:#EEEEEE"
+variable = "0"
+default = "fish"
+format = "([[](bg:#6f6a70 fg:#464347)$symbol$env_value[](bg:#464347 fg:#6f6a70)]($style))"
+
+[git_branch]
+# disabled = true
+# symbol = ""
+symbol = " "
+# symbol = "" # alternate
+style = "bg:#96ab5f fg:#111111"
+# truncation_length = 4
+# truncation_symbol = ""
+format = "[[](bg:#96ab5f fg:#464347)$symbol$branch[](bg:#464347 fg:#96ab5f)]($style)"
+
+[git_commit]
+# disabled = true
+style = "bg:#E58F73 fg:#111111"
+commit_hash_length = 4
+# only_detached = true
+format = "[[](bg:#E58F73 fg:#464347)#$hash[](bg:#464347 fg:#E58F73)]($style)"
+
+[git_state]
+# disabled = true
+style = "bg:#E0B25D fg:111111"
+rebase = "rebasing"
+merge = "merging"
+revert = "reverting"
+cherry_pick = " picking"
+bisect = "bisecting"
+am = "am'ing"
+am_or_rebase = "am/rebase"
+format = '\([[](bg:#E0B25D fg:#464347)$state($progress_current/$progress_total)[](bg:#464347 fg:#E0B25D)]($style)\)'
+
+[git_status]
+# disabled = true
+style = "bg:#E0B25D fg:#000000"
+stashed = " ${count}"
+ahead = "ﲗ ${count}"
+behind = "ﲔ ${count}"
+# diverged = "${ahead_count} ${behind_count}"
+conflicted = " ${count}"
+deleted = " ${count}"
+renamed = "⍈ ${count}"
+modified = "* ${count}"
+staged = " ${count}"
+untracked = " ${count}"
+format = "([[](bg:#E0B25D fg:#464347)$stashed$staged$modified$renamed$untracked$deleted$conflicted$ahead_behind[](bg:#464347 fg:#E0B25D)]($style))"
+
+[golang]
+# disabled = true
+symbol = " "
+style = "bg:#7FD5EA fg:#111111"
+format = "[[](bg:#7FD5EA fg:#464347)$symbol$version[](bg:#464347 fg:#7FD5EA)]($style)"
+
+[hostname]
+# disabled = true
+style = "bg:#AFD700 fg:#111111"
+# ssh_only = false
+trim_at = "."
+format = "[[](bg:#AFD700 fg:#464347)($style)$hostname[](bg:#464347 fg:#AFD700)]($style)"
+
+[jobs]
+# disabled = true
+symbol = "  "
+style = "bold bg:#464347 fg:#FFA200"
+# threshold = 1
+format = "[$symbol$number]($style)"
+
+[julia]
+# disabled = true
+symbol = " "
+style = "bg:#4063D8 fg:#EEEEEE"
+format = "[[](bg:#4063D8 fg:#464347)$symbol$version[](bg:#464347 fg:#4063D8)]($style)"
+
+[memory_usage]
+# disabled = false
+symbol = " "
+style = "bg:#BBBBBB fg:#111111"
+threshold = 75
+format = "([[](bg:#BBBBBB fg:#464347)$symbol$ram(:$swap)[](bg:#464347 fg:#BBBBBB)]($style))"
+
+[nix_shell]
+# disabled = true
+symbol = " "
+style = "bg:#27385D fg:#EEEEEE"
+impure_msg = '[\(impure\)](bg:#27385D fg:#FF5511)'
+pure_msg = '[\(pure\)](bg:#27385D fg:#AFD700)'
+format = '[[](bg:#27385D fg:#464347)$symbol$name$state[](bg:#464347 fg:#27385D)]($style)'
+
+[package]
+# disabled = true
+symbol = " "
+style = "bg:#6F6A70 fg:#EEEEEE"
+display_private = false
+format = "[[](bg:#6F6A70 fg:#464347)$symbol$version[](bg:#464347 fg:#6F6A70)]($style)"
+
+[python]
+symbol = " "
+style = "bg:#EBD45B fg:#111111"
+pyenv_prefix = "pyenv "
+python_binary = "python3"
+format = '[[](bg:#EBD45B fg:#464347)$symbol$pyenv_prefix$version(\($virtualenv\))[](bg:#464347 fg:#EBD45B)]($style)'
+
+[rust]
+disabled = true
+symbol = " "
+# symbol = " " # alternate
+style = "bg:#A72145 fg:#EEEEEE"
+format = "[[](bg:#A72145 fg:#464347)$symbol$version[](bg:#464347 fg:#A72145)]($style)"
+
+[shlvl]
+disabled = false
+symbol = " "
+style = "bold bg:#464347 fg:#FBDE2D"
+threshold = 2
+format = "[$symbol$shlvl]($style)"
+
+[status]
+symbol = ""
+style = "bg:#464347 fg:#ff3322"
+format = "[$symbol$status]($style)"
+
+[time]
+# disabled = false # TODO enable on the right when this is implemented
+style = "dimmed"
+format = "[[](bg:#FFA200 fg:#464347) $time[](bg:#464347 fg:#FFA200)]($style)"
+
+[username]
+# disabled = true
+# show_always = true
+style_root = "bold bg:#3388FF fg:#FF5511"
+style_user = "bg:#3388FF fg:#EEEEEE"
+format = "[[](bg:#3388FF fg:#464347)$user[](bg:#464347 fg:#3388FF)]($style)"
+#EOF.

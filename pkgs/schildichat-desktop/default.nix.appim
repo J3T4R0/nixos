@@ -1,0 +1,40 @@
+{ appimageTools, lib, fetchurl, runCommand }:
+let
+  pname = "schildichat-desktop";
+  version = "1.7.22-sc1";
+  name = "${pname}-${version}";
+
+  src = fetchurl {
+    url =
+      "https://github.com/SchildiChat/schildichat-desktop/releases/download/v${version}/SchildiChat-${version}.AppImage";
+    name = "${name}.AppImage";
+    sha256 = "sha256-crA6OU87m/hcxhk4MVTXvHCVWRPFt51Srbzz/u1uhVE=";
+  };
+
+  appimageContents = appimageTools.extract {
+    name = "${pname}-${version}";
+    inherit src;
+  };
+in appimageTools.wrapType2 {
+  inherit src name;
+
+  extraPkgs = pkgs: with pkgs; [ libappindicator gnome.libsecret ];
+
+  extraInstallCommands = ''
+    mv $out/bin/${name} $out/bin/${pname}
+
+    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+    substituteInPlace $out/share/applications/${pname}.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
+    cp -r ${appimageContents}/usr/share/icons $out/share
+  '';
+
+  meta = with lib; {
+    description =
+      "A Matrix Client based on Element with a more traditional instant messaging experience.";
+    homepage = "https://schildi.chat/desktop/";
+    license = licenses.asl20;
+    maintainers = [ ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

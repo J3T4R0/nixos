@@ -1,0 +1,59 @@
+{
+  "default_server_config": {
+    "m.homeserver": {
+      "base_url": "https://cloud.tissot.de",
+      "server_name": "cloud.tissot.de"
+    },
+    "m.identity_server": {
+      "base_url": "https://vector.im"
+    }
+  },
+  "defaultCountryCode": "DE",
+  "showLabsSettings": true,
+  "settingDefaults": {
+    "custom_themes": [
+      {
+        "name": "Dracula",
+        "is_dark": true,
+        "fonts": {
+          "faces": [
+            {
+              "font-family": "Fira Sans"
+            }
+          ],
+          "general": "Fira Sans",
+          "monospace": "Fira Code"
+        },
+        "colors": {
+          "accent-color": "#bd93f9",
+          "primary-color": "#bd93f9",
+          "warning-color": "#ff5555",
+          "sidebar-color": "#1e1f29",
+          "roomlist-background-color": "#1e1f29",
+          "roomlist-text-color": "#f8f8f2",
+          "roomlist-text-secondary-color": "#f8f8f2",
+          "roomlist-highlights-color": "#00000030",
+          "roomlist-separator-color": "#4d4d4d90",
+          "timeline-background-color": "#282A36",
+          "timeline-text-color": "#f8f8f2",
+          "timeline-text-secondary-color": "#ff79c6",
+          "timeline-highlights-color": "#00000030",
+          "timeline-bubble-background-incoming": "#1e1f29",
+          "timeline-bubble-background-outgoing": "#6272a4",
+          "timeline-bubble-background-selected": "#44475a",
+          "avatar-background-colors": [
+            "#8be9fd", "#50fa7b", "#ffb86c", "#ff79c6", "#bd93f9", "#ff5555", "#f1fa8c", "#6272a4"
+          ],
+          "reaction-row-button-selected-bg-color": "#bd93f9"
+        }
+      }
+    ],
+    "breadcrumbs": true,
+    "useCustomFontSize": true,
+    "theme": "custom-Dracula"
+  },
+  "default_theme": "custom-Dracula",
+  "jitsi": {
+    "preferredDomain": "jitsi.riot.im"
+  }
+}

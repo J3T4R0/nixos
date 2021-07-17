@@ -1,0 +1,103 @@
+
+1) Find the correct drive
+  #+begin_src bash
+  lsblk
+  #+end_src
+  #+begin_example
+  NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+  loop0         7:0    0   1,7G  1 loop /nix/.ro-store
+  sda           8:0    1   1,9G  0 disk
+  ├─sda1        8:1    1   1,7G  0 part /iso
+  └─sda2        8:2    1    21M  0 part
+  nvme0n1     259:0    0 931,5G  0 disk
+  ├─nvme0n1p1 259:4    0   512M  0 part
+  ├─nvme0n1p2 259:5    0   923G  0 part
+  └─nvme0n1p3 259:6    0     8G  0 part
+  #+end_example
+
+2) Change to super user
+  #+begin_src bash
+  sudo -i
+  #+end_src
+
+3) Open gdisk for the drive
+  #+begin_src bash
+  gdisk /dev/nvme0n1
+  #+end_src
+
+  1) create new table ~o~
+  2) create new partition ~n~ with size ~512MiB~ and type ~ef00~
+      (boot: EFI partition)
+  3) create new partition ~n~ with remaining size and type ~8309~
+      (root+home: Linux LUKS)
+  4) check with ~p~
+  #+begin_example
+  Model: Samsung SSD 970 EVO Plus 1TB
+  Sector size (logical/physical): 512/512 bytes
+  Disk identifier (GUID): AE8CC42D-378F-4345-B47C-11C6D7E97C14
+  Partition table holds up to 128 entries
+  Main partition table begins at sector 2 and ends at sector 33
+  First usable sector is 34, last usable sector is 1953525134
+  Partitions will be aligned on 2048-sector boundaries
+  Total free space is 4061 sectors (2.0 MiB)
+   Number  Start (sector)    End (sector)  Size       Code  Name
+     1            2048         1048576   511.0 MiB   EF00  EFI system partition
+     2         1050624      1953525134   931.0 GiB   8309  Linux LUKS
+  #+end_example
+  5) Write with ~w~
+
+4) Setup the crypt system
+  #+begin_src bash
+  cryptsetup luksFormat /dev/nvme0n1p2
+  cryptsetup luksOpen /dev/nvme0n1p2 enc-pv
+  #+end_src
+
+5) Create logical volumes
+  #+begin_src
+  pvcreate /dev/mapper/enc-pv
+  vgcreate vg /dev/mapper/enc-pv
+  #+end_src
+
+6) Partition logical volume
+  #+begin_src bash
+  lvcreate -L 124G -n root vg
+  lvcreate -l '100%FREE' -n home vg
+  #+end_src
+
+7) format all partitions
+  #+begin_src bash
+  mkfs.fat /dev/nvme0n1p1
+  mkfs.ext4 -L root /dev/vg/root
+  mkfs.ext4 -L home /dev/vg/home
+  #+end_src
+
+8) Mount partitions
+  #+begin_src bash
+  mount /dev/vg/root /mnt/
+  mkdir /mnt/boot
+  mkdir /mnt/home
+  mount /dev/vg/home /mnt/home/
+  mount /dev/nvme0n1p1 /mnt/boot/
+  #+end_src
+
+8) check partitioning
+  #+begin_src
+  lsblk
+  #+end_src
+  #+begin_example
+  NAME          MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+  loop0           7:0    0   1,7G  1 loop  /nix/.ro-store
+  sda             8:0    1   1,9G  0 disk
+  ├─sda1          8:1    1   1,7G  0 part  /iso
+  └─sda2          8:2    1    21M  0 part
+  nvme0n1       259:0    0 931,5G  0 disk
+  ├─nvme0n1p1   259:1    0   511M  0 part  /mnt/boot
+  └─nvme0n1p2   259:3    0   931G  0 part
+    └─enc-pv    254:0    0   931G  0 crypt
+      ├─vg-root 254:1    0   124G  0 lvm   /mnt
+      └─vg-home 254:2    0   807G  0 lvm   /mnt/home
+  #+end_example
+
+# Local variables:
+# org-confirm-babel-evaluate: nil
+# end:

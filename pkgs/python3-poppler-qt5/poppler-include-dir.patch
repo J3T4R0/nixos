@@ -1,0 +1,10 @@
+--- "a/setup.py"	2021-01-07 16:01:44.000000000 +0100
++++ "b/setup.py"	2021-03-01 14:17:26.697382287 +0100
+@@ -170,6 +170,7 @@
+                              'Please specify via --pyqt-sip-flags=')
+ 
+         self.include_dirs += (self.qt_include_dir,
++                              '@poppler_include_dir@',
+                               os.path.join(self.qt_include_dir, 'QtCore'),
+                               os.path.join(self.qt_include_dir, 'QtGui'),
+                               os.path.join(self.qt_include_dir, 'QtXml'))
